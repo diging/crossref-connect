@@ -9,6 +9,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.asu.diging.crossref.model.Item;
 import edu.asu.diging.crossref.model.impl.CrossrefResponseImpl;
 import edu.asu.diging.crossref.service.CrossrefConfiguration;
+import edu.asu.diging.crossref.service.CrossrefWorksService;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -22,11 +24,15 @@ public class CrossrefWorksServiceImpl implements CrossrefWorksService {
     }
 
     @Override
-    public List<Item> search(String query) throws IOException {
+    public List<Item> search(String query, int pageSize, int offset) throws IOException {
+        String url = config.getCrossrefApiBasePath() + config.getCrossrefWorksEndpoint();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
+        urlBuilder.addQueryParameter(config.getQueryParameter(), query);
+        urlBuilder.addQueryParameter(config.getRowsParameter(), pageSize + "");
+        urlBuilder.addQueryParameter(config.getOffsetParameter(), offset + "");
         
-        Request request = new Request.Builder()
-                .url(config.getCrossrefApiBasePath() + config.getCrossrefWorksEndpoint() + "?query=" + query).build();
-
+        Request request = new Request.Builder().url(urlBuilder.build()).build();
+                
         OkHttpClient client = new OkHttpClient();
         
         try (Response response = client.newCall(request).execute()) {
@@ -34,6 +40,8 @@ public class CrossrefWorksServiceImpl implements CrossrefWorksService {
                 ObjectMapper mapper = new ObjectMapper();
                 CrossrefResponseImpl results = mapper.readValue(response.body().string(), CrossrefResponseImpl.class);
                 return results.getMessage().getItems();
+            } else {
+                System.out.println(response.body().string());
             }
         }
         

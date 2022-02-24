@@ -5,19 +5,17 @@ import java.util.List;
 
 import edu.asu.diging.crossref.model.Item;
 import edu.asu.diging.crossref.service.CrossrefConfiguration;
-import edu.asu.diging.crossref.service.impl.CrossrefConfigurationImpl;
-import edu.asu.diging.crossref.service.impl.CrossrefWorksService;
+import edu.asu.diging.crossref.service.CrossrefWorksService;
 import edu.asu.diging.crossref.service.impl.CrossrefWorksServiceImpl;
 
-public class Main {
+public class Example {
 
     public static void main(String[] args) {
-        CrossrefConfiguration config = new CrossrefConfigurationImpl("https://api.crossref.org", "/works");
-        CrossrefWorksService service = new CrossrefWorksServiceImpl(config);
+        CrossrefWorksService service = new CrossrefWorksServiceImpl(CrossrefConfiguration.getDefaultConfig());
         
         try {
-            List<Item> results = service.search("einstein");
-            System.out.println(results);
+            List<Item> results = service.search("einstein", 5, 0);
+            results.forEach(r -> System.out.println(r.getTitle()));
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
