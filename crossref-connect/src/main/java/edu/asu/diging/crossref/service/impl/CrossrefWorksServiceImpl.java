@@ -1,11 +1,11 @@
 package edu.asu.diging.crossref.service.impl;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import edu.asu.diging.crossref.exception.RequestFailedException;
 import edu.asu.diging.crossref.model.Item;
 import edu.asu.diging.crossref.model.impl.CrossrefResponseImpl;
 import edu.asu.diging.crossref.service.CrossrefConfiguration;
@@ -24,7 +24,7 @@ public class CrossrefWorksServiceImpl implements CrossrefWorksService {
     }
 
     @Override
-    public List<Item> search(String query, int pageSize, int offset) throws IOException {
+    public List<Item> search(String query, int pageSize, int offset) throws RequestFailedException, IOException {
         String url = config.getCrossrefApiBasePath() + config.getCrossrefWorksEndpoint();
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addQueryParameter(config.getQueryParameter(), query);
@@ -41,12 +41,9 @@ public class CrossrefWorksServiceImpl implements CrossrefWorksService {
                 CrossrefResponseImpl results = mapper.readValue(response.body().string(), CrossrefResponseImpl.class);
                 return results.getMessage().getItems();
             } else {
-                System.out.println(response.body().string());
+                throw new RequestFailedException("Request failed with message: " + response.body().string());
             }
         }
-        
-        
-        return null;
     }
 
     public CrossrefConfiguration getConfig() {

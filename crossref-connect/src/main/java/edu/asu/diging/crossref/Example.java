@@ -3,6 +3,7 @@ package edu.asu.diging.crossref;
 import java.io.IOException;
 import java.util.List;
 
+import edu.asu.diging.crossref.exception.RequestFailedException;
 import edu.asu.diging.crossref.model.Item;
 import edu.asu.diging.crossref.service.CrossrefConfiguration;
 import edu.asu.diging.crossref.service.CrossrefWorksService;
@@ -17,7 +18,8 @@ public class Example {
             List<Item> results = service.search("einstein", 5, 0);
             results.forEach(r -> System.out.println(r.getTitle()));
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (RequestFailedException e) {
             e.printStackTrace();
         }
     }
