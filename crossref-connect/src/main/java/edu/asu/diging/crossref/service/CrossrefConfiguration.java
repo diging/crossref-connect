@@ -28,7 +28,7 @@ public interface CrossrefConfiguration {
     String getCrossrefWorksEndpoint();
 
     /**
-     * Returns the query parameter name, e.g. <code>query</query>
+     * Returns the query parameter name, e.g. <code>query</code>
      * @return
      */
     String getQueryParameter();
