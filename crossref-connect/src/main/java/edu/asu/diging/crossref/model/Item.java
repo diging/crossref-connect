@@ -150,9 +150,9 @@ public interface Item {
 
     void setPartNumber(String partNumber);
 
-    String getIsbn();
+    List<String> getIsbn();
 
-    void setIsbn(String isbn);
+    void setIsbn(List<String> isbn);
 
     List<String> getShortTitle();
 

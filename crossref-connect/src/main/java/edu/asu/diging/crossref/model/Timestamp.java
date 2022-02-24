@@ -9,9 +9,9 @@ import edu.asu.diging.crossref.model.impl.TimestampImpl;
 @JsonDeserialize(as=TimestampImpl.class)
 public interface Timestamp {
 
-    List<Integer> getIndexedDateParts();
+    List<List<Integer>> getIndexedDateParts();
 
-    void setIndexedDateParts(List<Integer> indexedDateParts);
+    void setIndexedDateParts(List<List<Integer>> indexedDateParts);
 
     String getDateTime();
 

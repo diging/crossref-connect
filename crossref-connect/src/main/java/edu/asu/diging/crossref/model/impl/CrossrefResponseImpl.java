@@ -1,9 +1,9 @@
 package edu.asu.diging.crossref.model.impl;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import edu.asu.diging.crossref.model.Message;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CrossrefResponseImpl {
@@ -13,8 +13,30 @@ public class CrossrefResponseImpl {
     private String messageType;
     @JsonProperty("message-version")
     private String messageVersion;
-    @JsonProperty("total-results")
-    private int totalResults;
-    private List<ItemImpl> items;
+    private Message message;
     
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    public String getMessageType() {
+        return messageType;
+    }
+    public void setMessageType(String messageType) {
+        this.messageType = messageType;
+    }
+    public String getMessageVersion() {
+        return messageVersion;
+    }
+    public void setMessageVersion(String messageVersion) {
+        this.messageVersion = messageVersion;
+    }
+    public Message getMessage() {
+        return message;
+    }
+    public void setMessage(Message message) {
+        this.message = message;
+    }
 }

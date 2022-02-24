@@ -3,13 +3,16 @@ package edu.asu.diging.crossref.model.impl;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import edu.asu.diging.crossref.model.Timestamp;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TimestampImpl implements Timestamp {
 
-    private List<Integer> indexedDateParts;
+    @JsonProperty("date-parts")
+    private List<List<Integer>> dateParts;
+    @JsonProperty("date-time")
     private String dateTime;
     private long timestamp; 
 
@@ -17,15 +20,15 @@ public class TimestampImpl implements Timestamp {
     /* (non-Javadoc)
      * @see edu.asu.diging.crossref.model.impl.Timestamp#getIndexedDateParts()
      */
-    public List<Integer> getIndexedDateParts() {
-        return indexedDateParts;
+    public List<List<Integer>> getIndexedDateParts() {
+        return dateParts;
     }
 
     /* (non-Javadoc)
      * @see edu.asu.diging.crossref.model.impl.Timestamp#setIndexedDateParts(java.util.List)
      */
-    public void setIndexedDateParts(List<Integer> indexedDateParts) {
-        this.indexedDateParts = indexedDateParts;
+    public void setIndexedDateParts(List<List<Integer>> dateParts) {
+        this.dateParts = dateParts;
     }
 
     /* (non-Javadoc)

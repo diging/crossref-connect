@@ -81,7 +81,7 @@ public class ItemImpl implements Item {
     @JsonProperty("part-number")
     private String partNumber;
     @JsonProperty("ISBN")
-    private String isbn;
+    private List<String> isbn;
     @JsonProperty("short-title")
     private List<String> shortTitle;
     private List<String> subtitle;
@@ -557,13 +557,13 @@ public class ItemImpl implements Item {
     /* (non-Javadoc)
      * @see edu.asu.diging.crossref.model.impl.Item#getIsbn()
      */
-    public String getIsbn() {
+    public List<String> getIsbn() {
         return isbn;
     }
     /* (non-Javadoc)
      * @see edu.asu.diging.crossref.model.impl.Item#setIsbn(java.lang.String)
      */
-    public void setIsbn(String isbn) {
+    public void setIsbn(List<String> isbn) {
         this.isbn = isbn;
     }
     /* (non-Javadoc)
