@@ -19,4 +19,6 @@ public interface CrossrefWorksService {
      */
     List<Item> search(String query, int pageSize, int offset) throws RequestFailedException, IOException;
 
+    Item get(String doi) throws RequestFailedException, IOException;
+
 }
